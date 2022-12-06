@@ -1,0 +1,34 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    geocoder (1.8.1)
+    httparty (0.20.0)
+      mime-types (~> 3.0)
+      multi_xml (>= 0.5.2)
+    json (2.6.3)
+    mime-types (3.4.1)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2022.0105)
+    mocha (2.0.2)
+      ruby2_keywords (>= 0.0.5)
+    multi_xml (0.6.0)
+    pg (1.4.5)
+    power_assert (2.0.2)
+    ruby2_keywords (0.0.5)
+    test-unit (3.5.5)
+      power_assert
+
+PLATFORMS
+  x86_64-darwin-21
+  x86_64-darwin-22
+
+DEPENDENCIES
+  geocoder
+  httparty
+  json
+  mocha
+  pg
+  test-unit
+
+BUNDLED WITH
+   2.3.4
