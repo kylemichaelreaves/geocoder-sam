@@ -12,7 +12,7 @@ def lambda_handler(event:, context:)
   logger.info(event)
   event.to_a
 
-  result = Geocoder.search(event)
+  result = Geocoder.search(event, params: {format: "geojson"})
 
   # Parameters
   # ----------
