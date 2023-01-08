@@ -41,8 +41,9 @@ def lambda_handler(event:, context:)
   {
     statusCode: 200,
     body: {
-      message: "Hello World from this edited lambda which I just now edited!",
+      # message: "Hello World from this edited lambda which I just now edited!",
       # location: response.body
+      geocoder_result: result
     }.to_json
   }
 end
