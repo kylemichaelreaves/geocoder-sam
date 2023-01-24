@@ -12,38 +12,39 @@ def lambda_handler(event:, context:)
   logger.info(event)
   event.to_a
 
-  result = Geocoder.search(event, params: {format: "geojson"})
+  # if the queryStringParameters are not present, return an error
+  if event['queryStringParameters'].nil? || event['queryStringParameters'].empty?
+    { statusCode: 400, body: JSON.generate({ message: 'Missing queryStringParameters' }) }
+  end
 
-  # Parameters
-  # ----------
-  # event: Hash, required
-  #     API Gateway Lambda Proxy Input Format
-  #     Event doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html#api-gateway-simple-proxy-for-lambda-input-format
+  street_address = event['queryStringParameters']['street_address']
+  apt_num = event['queryStringParameters'].fetch('apt_num', '')
+  city = event['queryStringParameters']['city']
+  state = event['queryStringParameters']['state']
+  zipcode = event['queryStringParameters'].fetch('zipcode', '')
 
-  # context: object, required
-  #     Lambda Context runtime methods and attributes
-  #     Context doc: https://docs.aws.amazon.com/lambda/latest/dg/ruby-context.html
+  address = "#{street_address} #{apt_num}, #{city}, #{state} #{zipcode}"
 
-  # Returns
-  # ------
-  # API Gateway Lambda Proxy Output Format: dict
-  #     'statusCode' and 'body' are required
-  #     # api-gateway-simple-proxy-for-lambda-output-format
-  #     Return doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html
+  # if all the elements in the array are empty or nil, return an error
+  if address.all?(&:empty?)
+    { statusCode: 400, body: JSON.generate({ message: 'An address could not be formed from the queryStringParameters' }) }
+    break
+  else
 
-  # begin
-  #   response = HTTParty.get('http://checkip.amazonaws.com/')
-  # rescue HTTParty::Error => error
-  #   puts error.inspect
-  #   raise error
-  # end
+    results = Geocoder.search(address)
 
-  {
-    statusCode: 200,
-    body: {
-      # message: "Hello World from this edited lambda which I just now edited!",
-      # location: response.body
-      geocoder_result: result
-    }.to_json
-  }
+    results.headers = {
+      'Access-Control-Allow-Origin' => '*',
+      'Access-Control-Allow-Headers' => 'Content-Type',
+      'Access-Control-Allow-Methods' => 'OPTIONS,POST,GET'
+    }
+
+    if results.empty?
+      { statusCode: 200, body: JSON.generate({ message: "No results found for #{address}" }) }
+    else
+      { statusCode: 200, body: JSON.generate({ message: results.to_json }) }
+    end
+
+  end
+
 end
