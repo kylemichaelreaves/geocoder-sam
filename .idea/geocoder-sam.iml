@@ -10,16 +10,23 @@
     </content>
     <orderEntry type="jdk" jdkName="rbenv: 2.7.7" jdkType="RUBY_SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" scope="PROVIDED" name="Ascii85 (v1.1.0, rbenv: 2.7.7) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="afm (v0.2.2, rbenv: 2.7.7) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="bundler (v2.3.4, rbenv: 2.7.7) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="geocoder (v1.8.1, rbenv: 2.7.7) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="hashery (v2.1.2, rbenv: 2.7.7) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="httparty (v0.21.0, rbenv: 2.7.7) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="json (v2.6.3, rbenv: 2.7.7) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="mini_mime (v1.1.2, rbenv: 2.7.7) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="mocha (v2.0.2, rbenv: 2.7.7) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="multi_xml (v0.6.0, rbenv: 2.7.7) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="pdf-reader (v2.11.0, rbenv: 2.7.7) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="pg (v1.4.5, rbenv: 2.7.7) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="power_assert (v2.0.3, rbenv: 2.7.7) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="ruby-rc4 (v0.1.5, rbenv: 2.7.7) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="ruby2_keywords (v0.0.5, rbenv: 2.7.7) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="test-unit (v3.5.7, rbenv: 2.7.7) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="ttfunk (v1.7.0, rbenv: 2.7.7) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="uri (v0.10.0, rbenv: 2.7.7) [gem]" level="application" />
   </component>
 </module>

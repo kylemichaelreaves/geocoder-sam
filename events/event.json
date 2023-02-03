@@ -1,62 +1,51 @@
 {
-  "body": "{\"message\": \"hello world\"}",
-  "resource": "/{proxy+}",
-  "path": "/path/to/resource",
-  "httpMethod": "POST",
-  "isBase64Encoded": false,
-  "queryStringParameters": {
-    "foo": "bar"
-  },
-  "pathParameters": {
-    "proxy": "/path/to/resource"
-  },
-  "stageVariables": {
-    "baz": "qux"
-  },
+  "version": "2.0",
+  "routeKey": "ANY /address-geocoder",
+  "rawPath": "/dev/address-geocoder",
+  "rawQueryString": "address={%22streetAddress%22:%22208%20Anderson%20St,%20N1B%22,%22aptNum%22:%22%22,%22city%22:%22Hackensack%22,%22state%22:%22New%20Jersey%22,%22zipCode%22:%2207601%22}",
   "headers": {
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-    "Accept-Encoding": "gzip, deflate, sdch",
-    "Accept-Language": "en-US,en;q=0.8",
-    "Cache-Control": "max-age=0",
-    "CloudFront-Forwarded-Proto": "https",
-    "CloudFront-Is-Desktop-Viewer": "true",
-    "CloudFront-Is-Mobile-Viewer": "false",
-    "CloudFront-Is-SmartTV-Viewer": "false",
-    "CloudFront-Is-Tablet-Viewer": "false",
-    "CloudFront-Viewer-Country": "US",
-    "Host": "1234567890.execute-api.us-east-1.amazonaws.com",
-    "Upgrade-Insecure-Requests": "1",
-    "User-Agent": "Custom User Agent String",
-    "Via": "1.1 08f323deadbeefa7af34d5feb414ce27.cloudfront.net (CloudFront)",
-    "X-Amz-Cf-Id": "cDehVQoZnx43VYQb9j2-nvCh-9z396Uhbp027Y2JvkCPNLmGJHqlaA==",
-    "X-Forwarded-For": "127.0.0.1, 127.0.0.2",
-    "X-Forwarded-Port": "443",
-    "X-Forwarded-Proto": "https"
+    "accept": "application/json, text/plain, */*",
+    "accept-encoding": "gzip, deflate, br",
+    "accept-language": "en-US,en;q=0.9,fr;q=0.8",
+    "content-length": "0",
+    "host": "y7l0lnpcs2.execute-api.us-east-1.amazonaws.com",
+    "origin": "http://localhost:5173",
+    "referer": "http://localhost:5173/",
+    "sec-ch-ua": "\"Not_A Brand\";v=\"99\", \"Google Chrome\";v=\"109\", \"Chromium\";v=\"109\"",
+    "sec-ch-ua-mobile": "?0",
+    "sec-ch-ua-platform": "\"macOS\"",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "cross-site",
+    "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
+    "x-amzn-trace-id": "Root=1-63d71469-5e4d4d4107f6246c0787e738",
+    "x-forwarded-for": "74.105.149.237",
+    "x-forwarded-port": "443",
+    "x-forwarded-proto": "https"
+  },
+  "queryStringParameters": {
+    "address": "{\"streetAddress\":\"208 Anderson St\",\"aptNum\":\"\",\"city\":\"Hackensack\",\"state\":\"New Jersey\",\"zipCode\":\"07601\"}"
   },
   "requestContext": {
-    "accountId": "123456789012",
-    "resourceId": "123456",
-    "stage": "prod",
-    "requestId": "c6af9ac6-7b61-11e6-9a41-93e8deadbeef",
-    "requestTime": "09/Apr/2015:12:34:56 +0000",
-    "requestTimeEpoch": 1428582896000,
-    "identity": {
-      "cognitoIdentityPoolId": null,
-      "accountId": null,
-      "cognitoIdentityId": null,
-      "caller": null,
-      "accessKey": null,
-      "sourceIp": "127.0.0.1",
-      "cognitoAuthenticationType": null,
-      "cognitoAuthenticationProvider": null,
-      "userArn": null,
-      "userAgent": "Custom User Agent String",
-      "user": null
+    "accountId": "756678551734",
+    "apiId": "y7l0lnpcs2",
+    "domainName": "y7l0lnpcs2.execute-api.us-east-1.amazonaws.com",
+    "domainPrefix": "y7l0lnpcs2",
+    "http": {
+      "method": "GET",
+      "path": "/dev/address-geocoder",
+      "protocol": "HTTP/1.1",
+      "sourceIp": "74.105.149.237",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"
     },
-    "path": "/prod/path/to/resource",
-    "resourcePath": "/{proxy+}",
-    "httpMethod": "POST",
-    "apiId": "1234567890",
-    "protocol": "HTTP/1.1"
-  }
+    "requestId": "fiAgigplIAMEMGA=",
+    "routeKey": "ANY /address-geocoder",
+    "stage": "dev",
+    "time": "30/Jan/2023:00:50:49 +0000",
+    "timeEpoch": 1675039849663
+  },
+  "stageVariables": {
+    "lambdaAlias": "DEV"
+  },
+  "isBase64Encoded": false
 }

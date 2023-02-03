@@ -1,7 +1,10 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    Ascii85 (1.1.0)
+    afm (0.2.2)
     geocoder (1.8.1)
+    hashery (2.1.2)
     httparty (0.21.0)
       mini_mime (>= 1.0.0)
       multi_xml (>= 0.5.2)
@@ -10,11 +13,20 @@ GEM
     mocha (2.0.2)
       ruby2_keywords (>= 0.0.5)
     multi_xml (0.6.0)
+    pdf-reader (2.11.0)
+      Ascii85 (~> 1.0)
+      afm (~> 0.2.1)
+      hashery (~> 2.0)
+      ruby-rc4
+      ttfunk
     pg (1.4.5)
     power_assert (2.0.3)
+    ruby-rc4 (0.1.5)
     ruby2_keywords (0.0.5)
     test-unit (3.5.7)
       power_assert
+    ttfunk (1.7.0)
+    uri (0.12.0)
 
 PLATFORMS
   ruby
@@ -26,8 +38,10 @@ DEPENDENCIES
   httparty
   json
   mocha
+  pdf-reader
   pg
   test-unit
+  uri
 
 BUNDLED WITH
    2.3.4

@@ -4,5 +4,7 @@ gem "httparty"
 gem "geocoder"
 gem "pg"
 gem "json"
+gem 'pdf-reader'
+gem 'uri'
 
 ruby '~> 2.7.7'
