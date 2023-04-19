@@ -28,10 +28,11 @@ def lambda_handler(event:, context:)
     end
     logger.info("address_hash: #{address_hash}")
 
-    # build the joined address
-    joined_address = address_hash.map do |key, value|
-      key == 'aptorunitnum' ? "#{value} " : "#{value},"
-    end.compact.join("")
+    # build the joined address and reject empty elements
+    address_components = address_hash.map do |key, value|
+      key == 'aptorunitnum' ? "#{value} " : "#{value}"
+    end.compact.reject(&:empty?)
+    joined_address = address_components.join(", ")
     logger.info("joined_address: #{joined_address}")
 
     # if the joined address is empty, return an error
@@ -57,6 +58,7 @@ def lambda_handler(event:, context:)
         }
       else
         logger.info("Found #{results.count} results for #{joined_address}")
+        logger.info("Results: #{results.map { |res| res.data }}")
         { statusCode: 200,
           headers: {
             'Content-Type' => 'application/json'
