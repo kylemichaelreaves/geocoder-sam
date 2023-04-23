@@ -15,7 +15,6 @@
     <orderEntry type="library" scope="PROVIDED" name="json (v2.6.3, rbenv: 2.7.7) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="logger (v1.5.3, rbenv: 2.7.7) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="mocha (v2.0.2, rbenv: 2.7.7) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="pg (v1.4.6, rbenv: 2.7.7) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="power_assert (v2.0.3, rbenv: 2.7.7) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="ruby2_keywords (v0.0.5, rbenv: 2.7.7) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="test-unit (v3.5.7, rbenv: 2.7.7) [gem]" level="application" />
