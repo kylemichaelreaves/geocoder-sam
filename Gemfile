@@ -4,8 +4,8 @@ gem "httparty"
 gem "geocoder"
 gem "pg"
 gem "json"
-gem 'pdf-reader'
 gem 'uri'
+gem 'logger'
 
 group :test do
   gem "test-unit"
