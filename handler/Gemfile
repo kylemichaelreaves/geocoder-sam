@@ -4,7 +4,10 @@ gem "httparty"
 gem "geocoder"
 gem "pg"
 gem "json"
-gem 'pdf-reader'
 gem 'uri'
+gem 'logger'
 
-ruby '~> 2.7.7'
+group :test do
+  gem "test-unit"
+  gem "mocha"
+end
