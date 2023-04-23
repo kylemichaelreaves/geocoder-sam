@@ -46,7 +46,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v3
       - uses: aws-actions/setup-sam@v1
 
       - name: Assume the testing pipeline user role
@@ -77,7 +77,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v3
       - uses: aws-actions/setup-sam@v1
       - run: sam build --template ${SAM_TEMPLATE} --use-container
 
@@ -108,7 +108,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v3
       - uses: aws-actions/setup-sam@v1
 
       - name: Build resources
@@ -166,7 +166,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v3
       - uses: aws-actions/setup-sam@v1
       - uses: actions/download-artifact@v2
         with:
@@ -212,7 +212,7 @@ jobs:
     # environment: <configured-environment>
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v3
       - uses: aws-actions/setup-sam@v1
       - uses: actions/download-artifact@v2
         with:
