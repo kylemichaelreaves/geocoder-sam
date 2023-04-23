@@ -5,6 +5,7 @@ gem "pg"
 gem "json"
 gem 'uri'
 gem 'logger'
+gem 'httparty'
 
 group :test do
   gem "test-unit"
