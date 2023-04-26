@@ -3,7 +3,7 @@ require 'logger'
 require 'geocoder'
 require 'uri'
 
-def lambda_handler(event:, context:)
+def lambda_handler(event:, context:,  logger: Logger.new($stdout))
   logger = Logger.new($stdout)
   logger.info('## ENVIRONMENT VARIABLES')
   logger.info(ENV.to_a)
