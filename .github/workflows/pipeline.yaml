@@ -37,9 +37,30 @@ jobs:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - run: |
-          # trigger the tests here
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get install -y build-essential patch zlib1g-dev liblzma-dev libsqlite3-dev
+          gem install bundler
+          bundle config path vendor/bundle
+          bundle install
+
+      - name: Set up AWS SAM CLI
+        run: |
+          wget https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip
+          unzip aws-sam-cli-linux-x86_64.zip -d sam-installation
+          sudo ./sam-installation/install
+
+      - name: Run unit tests
+        run: |
+          bundle exec rspec
 
   delete-feature:
     if: startsWith(github.event.ref, 'feature') && github.event_name == 'delete'
@@ -73,7 +94,7 @@ jobs:
     # this stage is triggered only for feature branches (feature*),
     # which will build the stack and deploy to a stack named with branch name.
     if: startsWith(github.ref, 'refs/heads/feature')
-    needs: [test]
+    needs: [ test ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -105,7 +126,7 @@ jobs:
 
   build-and-package:
     if: github.ref == 'refs/heads/main'
-    needs: [test]
+    needs: [ test ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -166,7 +187,7 @@ jobs:
 
   deploy-testing:
     if: github.ref == 'refs/heads/main'
-    needs: [build-and-package]
+    needs: [ build-and-package ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -201,7 +222,7 @@ jobs:
 
   integration-test:
     if: github.ref == 'refs/heads/main'
-    needs: [deploy-testing]
+    needs: [ deploy-testing ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -210,7 +231,7 @@ jobs:
 
   deploy-prod:
     if: github.ref == 'refs/heads/main'
-    needs: [integration-test]
+    needs: [ integration-test ]
     runs-on: ubuntu-latest
     # Configure GitHub Action Environment to have a manual approval step before deployment to production
     # https://docs.github.com/en/actions/reference/environments
