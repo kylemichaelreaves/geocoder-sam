@@ -43,15 +43,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-<<<<<<< HEAD
-<<<<<<< HEAD
           ruby-version: 3.2
-=======
-          ruby-version: 2.7
->>>>>>> 186b76a (bumping Ruby version)
-=======
-          ruby-version: 3.2
->>>>>>> 3e3b3e6 (bumping the Ruby version in the GitHub pipeline)
 
       - name: Install dependencies
         run: |
