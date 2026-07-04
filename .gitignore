@@ -11,3 +11,12 @@ vendor/bundle
 
 # Packaged templates produced by CI
 packaged-*.yaml
+
+# macOS
+.DS_Store
+
+# Postman desktop app git-sync artifacts — the canonical collection is the
+# single file postman/geocoder-sam.postman_collection.json
+.postman/
+postman/collections/
+postman/globals/
