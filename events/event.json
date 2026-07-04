@@ -1,51 +1,21 @@
 {
-  "version": "2.0",
-  "routeKey": "ANY /address-geocoder",
-  "rawPath": "/dev/address-geocoder",
-  "rawQueryString": "address={%22streetAddress%22:%22208%20Anderson%20St,%20N1B%22,%22aptNum%22:%22%22,%22city%22:%22Hackensack%22,%22state%22:%22New%20Jersey%22,%22zipCode%22:%2207601%22}",
+  "resource": "/v1/geocode",
+  "path": "/v1/geocode",
+  "httpMethod": "GET",
   "headers": {
-    "accept": "application/json, text/plain, */*",
-    "accept-encoding": "gzip, deflate, br",
-    "accept-language": "en-US,en;q=0.9,fr;q=0.8",
-    "content-length": "0",
-    "host": "y7l0lnpcs2.execute-api.us-east-1.amazonaws.com",
-    "origin": "http://localhost:5173",
-    "referer": "http://localhost:5173/",
-    "sec-ch-ua": "\"Not_A Brand\";v=\"99\", \"Google Chrome\";v=\"109\", \"Chromium\";v=\"109\"",
-    "sec-ch-ua-mobile": "?0",
-    "sec-ch-ua-platform": "\"macOS\"",
-    "sec-fetch-dest": "empty",
-    "sec-fetch-mode": "cors",
-    "sec-fetch-site": "cross-site",
-    "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
-    "x-amzn-trace-id": "Root=1-63d71469-5e4d4d4107f6246c0787e738",
-    "x-forwarded-for": "74.105.149.237",
-    "x-forwarded-port": "443",
-    "x-forwarded-proto": "https"
+    "Accept": "application/json"
   },
   "queryStringParameters": {
-    "address": "{\"streetAddress\":\"208 Anderson St\",\"aptNum\":\"\",\"city\":\"Hackensack\",\"state\":\"New Jersey\",\"zipCode\":\"07601\"}"
+    "streetAddress": "1600 Pennsylvania Ave NW",
+    "unitOrAptNum": "",
+    "municipality": "Washington",
+    "state": "DC",
+    "zipcode": "20500"
   },
   "requestContext": {
-    "accountId": "756678551734",
-    "apiId": "y7l0lnpcs2",
-    "domainName": "y7l0lnpcs2.execute-api.us-east-1.amazonaws.com",
-    "domainPrefix": "y7l0lnpcs2",
-    "http": {
-      "method": "GET",
-      "path": "/dev/address-geocoder",
-      "protocol": "HTTP/1.1",
-      "sourceIp": "74.105.149.237",
-      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"
-    },
-    "requestId": "fiAgigplIAMEMGA=",
-    "routeKey": "ANY /address-geocoder",
-    "stage": "dev",
-    "time": "30/Jan/2023:00:50:49 +0000",
-    "timeEpoch": 1675039849663
-  },
-  "stageVariables": {
-    "lambdaAlias": "DEV"
+    "resourcePath": "/v1/geocode",
+    "httpMethod": "GET",
+    "stage": "dev"
   },
   "isBase64Encoded": false
 }

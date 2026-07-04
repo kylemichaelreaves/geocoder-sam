@@ -1,0 +1,16 @@
+{
+  "resource": "/v1/geocode",
+  "path": "/v1/geocode",
+  "httpMethod": "POST",
+  "headers": {
+    "Accept": "application/json",
+    "Content-Type": "application/json"
+  },
+  "body": "{\"streetAddress\":\"208 Anderson St\",\"aptNum\":\"\",\"city\":\"Hackensack\",\"state\":\"New Jersey\",\"zipCode\":\"07601\"}",
+  "requestContext": {
+    "resourcePath": "/v1/geocode",
+    "httpMethod": "POST",
+    "stage": "dev"
+  },
+  "isBase64Encoded": false
+}

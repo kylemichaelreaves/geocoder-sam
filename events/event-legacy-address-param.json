@@ -1,0 +1,18 @@
+{
+  "_comment": "DEPRECATED input shape: JSON payload passed in the `address` query param. Kept for backward compatibility; prefer individual GET params or a POST JSON body.",
+  "resource": "/v1/geocode",
+  "path": "/v1/geocode",
+  "httpMethod": "GET",
+  "headers": {
+    "Accept": "application/json"
+  },
+  "queryStringParameters": {
+    "address": "{\"streetAddress\":\"208 Anderson St\",\"aptNum\":\"\",\"city\":\"Hackensack\",\"state\":\"New Jersey\",\"zipCode\":\"07601\"}"
+  },
+  "requestContext": {
+    "resourcePath": "/v1/geocode",
+    "httpMethod": "GET",
+    "stage": "dev"
+  },
+  "isBase64Encoded": false
+}
