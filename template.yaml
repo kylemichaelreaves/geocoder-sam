@@ -5,6 +5,15 @@ Description: >
 
   Serverless address geocoding API.
 
+Parameters:
+  AuthorizerFunctionArn:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: /dev/resourceQuerier/authorizer/functionArn
+    Description: >
+      ARN of resourceQuerier's JWT Lambda authorizer, resolved from SSM. The
+      geocoder API delegates authentication to it so only callers with a valid
+      JWT (issued by resourceQuerier POST /api/v1/login) can invoke /v1/geocode.
+
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
   Function:
@@ -17,16 +26,15 @@ Resources:
     Properties:
       StageName: Prod
       Auth:
-        ApiKeyRequired: true
-        UsagePlan:
-          CreateUsagePlan: PER_API
-          Description: Usage plan for the geocoder API
-          Quota:
-            Limit: 5000
-            Period: DAY
-          Throttle:
-            BurstLimit: 20
-            RateLimit: 10
+        DefaultAuthorizer: JwtAuthorizer
+        Authorizers:
+          # Delegates authentication to resourceQuerier's JWT Lambda authorizer
+          # (shared via SSM). Only callers with a valid Bearer token issued by
+          # resourceQuerier (POST /api/v1/login) can invoke the API.
+          JwtAuthorizer:
+            FunctionArn: !Ref AuthorizerFunctionArn
+            Identity:
+              Header: Authorization
 
   GeocoderFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
