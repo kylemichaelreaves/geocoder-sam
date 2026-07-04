@@ -1,4 +1,9 @@
+# frozen_string_literal: true
+
 require_relative '../app'
+
+WHITE_HOUSE_STREET = '1600 Pennsylvania Ave NW'
+HACKENSACK_ADDRESS = '208 Anderson St, Hackensack, New Jersey, 07601'
 
 RSpec.describe 'lambda_handler' do
   let(:logger) { instance_double(Logger) }
@@ -12,7 +17,7 @@ RSpec.describe 'lambda_handler' do
 
   let(:geocoder_result) do
     double('Geocoder::Result::Base', data: {
-             'address' => '1600 Pennsylvania Ave NW',
+             'address' => WHITE_HOUSE_STREET,
              'city' => 'Washington',
              'state' => 'DC',
              'postal_code' => '20500'
@@ -23,7 +28,7 @@ RSpec.describe 'lambda_handler' do
     let(:event) do
       {
         'queryStringParameters' => {
-          'streetAddress' => '1600 Pennsylvania Ave NW',
+          'streetAddress' => WHITE_HOUSE_STREET,
           'municipality' => 'Washington',
           'state' => 'DC',
           'zipcode' => '20500'
@@ -38,12 +43,12 @@ RSpec.describe 'lambda_handler' do
 
       expect(response[:statusCode]).to eq(200)
       expect(response[:headers]).to eq({ 'Content-Type' => 'application/json' })
-      expect(response[:body]).to include('1600 Pennsylvania Ave NW')
+      expect(response[:body]).to include(WHITE_HOUSE_STREET)
     end
 
     it 'joins the params into a single address string, dropping blanks' do
       expect(Geocoder).to receive(:search)
-        .with('1600 Pennsylvania Ave NW, Washington, DC, 20500')
+        .with("#{WHITE_HOUSE_STREET}, Washington, DC, 20500")
         .and_return([geocoder_result])
 
       lambda_handler(event: event, context: context, logger: logger)
@@ -55,19 +60,19 @@ RSpec.describe 'lambda_handler' do
       {
         'queryStringParameters' => {
           'address' => JSON.generate({
-                                        'streetAddress' => '208 Anderson St',
-                                        'aptNum' => '',
-                                        'city' => 'Hackensack',
-                                        'state' => 'New Jersey',
-                                        'zipCode' => '07601'
-                                      })
+                                       'streetAddress' => '208 Anderson St',
+                                       'aptNum' => '',
+                                       'city' => 'Hackensack',
+                                       'state' => 'New Jersey',
+                                       'zipCode' => '07601'
+                                     })
         }
       }
     end
 
     it 'parses the JSON blob and returns a successful response' do
       expect(Geocoder).to receive(:search)
-        .with('208 Anderson St, Hackensack, New Jersey, 07601')
+        .with(HACKENSACK_ADDRESS)
         .and_return([geocoder_result])
 
       response = lambda_handler(event: event, context: context, logger: logger)
@@ -81,17 +86,17 @@ RSpec.describe 'lambda_handler' do
       {
         'httpMethod' => 'POST',
         'body' => JSON.generate({
-                                   'streetAddress' => '208 Anderson St',
-                                   'city' => 'Hackensack',
-                                   'state' => 'New Jersey',
-                                   'zipCode' => '07601'
-                                 })
+                                  'streetAddress' => '208 Anderson St',
+                                  'city' => 'Hackensack',
+                                  'state' => 'New Jersey',
+                                  'zipCode' => '07601'
+                                })
       }
     end
 
     it 'parses the body and returns a successful response' do
       expect(Geocoder).to receive(:search)
-        .with('208 Anderson St, Hackensack, New Jersey, 07601')
+        .with(HACKENSACK_ADDRESS)
         .and_return([geocoder_result])
 
       response = lambda_handler(event: event, context: context, logger: logger)
@@ -103,7 +108,7 @@ RSpec.describe 'lambda_handler' do
       encoded = [event['body']].pack('m0')
       base64_event = { 'httpMethod' => 'POST', 'body' => encoded, 'isBase64Encoded' => true }
       expect(Geocoder).to receive(:search)
-        .with('208 Anderson St, Hackensack, New Jersey, 07601')
+        .with(HACKENSACK_ADDRESS)
         .and_return([geocoder_result])
 
       response = lambda_handler(event: base64_event, context: context, logger: logger)
@@ -161,7 +166,7 @@ RSpec.describe 'lambda_handler' do
   end
 
   context 'when the geocoder raises an error' do
-    let(:event) { { 'queryStringParameters' => { 'streetAddress' => '1600 Pennsylvania Ave NW' } } }
+    let(:event) { { 'queryStringParameters' => { 'streetAddress' => WHITE_HOUSE_STREET } } }
 
     it 'returns a 500 error response' do
       allow(Geocoder).to receive(:search).and_raise(StandardError.new('upstream timeout'))

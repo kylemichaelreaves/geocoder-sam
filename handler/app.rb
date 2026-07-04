@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'json'
 require 'logger'
 require 'geocoder'
@@ -54,21 +56,21 @@ end
 #   3. individual query params        (canonical RESTful GET)
 # Values are stripped, blanks dropped, and joined by ", ".
 def extract_address(event)
-  params = event['queryStringParameters'] || {}
-  body = parse_body(event)
-
-  source, keys =
-    if body && !body.empty?
-      [body, JSON_ADDRESS_KEYS]
-    elsif params['address']
-      [JSON.parse(params['address']), JSON_ADDRESS_KEYS]
-    else
-      [params, INDIVIDUAL_ADDRESS_KEYS]
-    end
-
+  source, keys = address_source(event)
   keys.filter_map { |key| source[key]&.to_s&.strip }
       .reject(&:empty?)
       .join(', ')
+end
+
+# Returns the [source_hash, keys] pair for whichever input shape was used.
+def address_source(event)
+  body = parse_body(event)
+  return [body, JSON_ADDRESS_KEYS] if body && !body.empty?
+
+  params = event['queryStringParameters'] || {}
+  return [JSON.parse(params['address']), JSON_ADDRESS_KEYS] if params['address']
+
+  [params, INDIVIDUAL_ADDRESS_KEYS]
 end
 
 # Parses a request body into a Hash, decoding base64 first when API Gateway flags
