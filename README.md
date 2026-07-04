@@ -15,7 +15,9 @@ Nominatim/OpenStreetMap lookup.
 
 ## API
 
-`{GET,POST} /v1/geocode` — requires an API key (`x-api-key` header) when deployed.
+`{GET,POST} /v1/geocode` — protected by resourceQuerier's JWT authorizer. Callers must
+send `Authorization: Bearer <jwt>` with a token issued by resourceQuerier's
+`POST /api/v1/login`; requests without a valid token get `401`.
 
 The endpoint accepts an address in one of three shapes:
 
@@ -40,6 +42,7 @@ The endpoint accepts an address in one of three shapes:
 | Status | When |
 |--------|------|
 | `200`  | Results found — `{ "message": [ ...geocoder results... ] }` |
+| `401`  | Missing or invalid JWT (rejected by the authorizer) |
 | `400`  | No address provided, or malformed JSON |
 | `404`  | No geocoding results for the address |
 | `500`  | Upstream geocoder error |
@@ -57,7 +60,7 @@ sam build --use-container
 sam local start-api
 ```
 
-Then call it (SAM local does not enforce the API key):
+Then call it (SAM local does not run the JWT authorizer, so no token is needed locally):
 
 ```bash
 curl "http://127.0.0.1:3000/v1/geocode?streetAddress=1600%20Pennsylvania%20Ave%20NW&municipality=Washington&state=DC&zipcode=20500"
@@ -91,9 +94,12 @@ sam build --use-container
 sam deploy --guided
 ```
 
-After deploying, the `GeocoderApiUrl` stack output gives the invoke URL. Retrieve the
-generated API key value from API Gateway (Console → API Keys, or `aws apigateway
-get-api-key --api-key <id> --include-value`) and send it in the `x-api-key` header.
+After deploying, the `GeocoderApiUrl` stack output gives the invoke URL. The API is
+protected by resourceQuerier's JWT authorizer, referenced via the
+`/dev/resourceQuerier/authorizer/functionArn` SSM parameter — resourceQuerier must
+publish that parameter (deploy) **before** geocoder-sam is deployed. Authenticate by
+obtaining a token from resourceQuerier's `POST /api/v1/login` and sending it as
+`Authorization: Bearer <jwt>`.
 
 ## Unit tests
 

@@ -1,21 +1,24 @@
 {
   "info": {
     "name": "geocoder-sam",
-    "description": "Serverless address geocoding API. Set the `baseUrl` and `apiKey` collection variables before running.\n\n- Local (`sam local start-api`): baseUrl = http://127.0.0.1:3000, apiKey can be left blank (SAM local does not enforce API keys).\n- Deployed: baseUrl = the GeocoderApiUrl stack output WITHOUT the trailing /v1/geocode (e.g. https://abc123.execute-api.us-east-1.amazonaws.com/Prod), apiKey = the value of the generated API key.",
+    "description": "Serverless address geocoding API. Set the `baseUrl` and `jwt` collection variables before running.\n\n- Auth: the API is protected by resourceQuerier's JWT authorizer. Obtain a token from `POST {resourceQuerierBaseUrl}/api/v1/login`, then set `jwt` to that token. Requests send it as `Authorization: Bearer {{jwt}}`.\n- Local (`sam local start-api`): baseUrl = http://127.0.0.1:3000. SAM local does not run the Lambda authorizer, so `jwt` can be left blank locally.\n- Deployed: baseUrl = the GeocoderApiUrl stack output WITHOUT the trailing /v1/geocode (e.g. https://abc123.execute-api.us-east-1.amazonaws.com/Prod).",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
     { "key": "baseUrl", "value": "http://127.0.0.1:3000" },
-    { "key": "apiKey", "value": "" }
+    { "key": "jwt", "value": "" }
   ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [{ "key": "token", "value": "{{jwt}}", "type": "string" }]
+  },
   "item": [
     {
       "name": "Geocode (GET, individual params)",
       "request": {
         "method": "GET",
         "header": [
-          { "key": "Accept", "value": "application/json" },
-          { "key": "x-api-key", "value": "{{apiKey}}" }
+          { "key": "Accept", "value": "application/json" }
         ],
         "url": {
           "raw": "{{baseUrl}}/v1/geocode?streetAddress=1600 Pennsylvania Ave NW&municipality=Washington&state=DC&zipcode=20500",
@@ -37,8 +40,7 @@
         "method": "POST",
         "header": [
           { "key": "Accept", "value": "application/json" },
-          { "key": "Content-Type", "value": "application/json" },
-          { "key": "x-api-key", "value": "{{apiKey}}" }
+          { "key": "Content-Type", "value": "application/json" }
         ],
         "body": {
           "mode": "raw",
@@ -52,35 +54,35 @@
       }
     },
     {
-      "name": "Geocode (GET, legacy address blob — deprecated)",
-      "request": {
-        "method": "GET",
-        "header": [
-          { "key": "Accept", "value": "application/json" },
-          { "key": "x-api-key", "value": "{{apiKey}}" }
-        ],
-        "url": {
-          "raw": "{{baseUrl}}/v1/geocode?address={\"streetAddress\":\"208 Anderson St\",\"city\":\"Hackensack\",\"state\":\"New Jersey\",\"zipCode\":\"07601\"}",
-          "host": ["{{baseUrl}}"],
-          "path": ["v1", "geocode"],
-          "query": [
-            { "key": "address", "value": "{\"streetAddress\":\"208 Anderson St\",\"city\":\"Hackensack\",\"state\":\"New Jersey\",\"zipCode\":\"07601\"}" }
-          ]
-        }
-      }
-    },
-    {
       "name": "Geocode (400 — no address)",
       "request": {
         "method": "GET",
         "header": [
-          { "key": "Accept", "value": "application/json" },
-          { "key": "x-api-key", "value": "{{apiKey}}" }
+          { "key": "Accept", "value": "application/json" }
         ],
         "url": {
           "raw": "{{baseUrl}}/v1/geocode",
           "host": ["{{baseUrl}}"],
           "path": ["v1", "geocode"]
+        }
+      }
+    },
+    {
+      "name": "Geocode (401 — no/invalid token)",
+      "request": {
+        "auth": { "type": "noauth" },
+        "method": "GET",
+        "header": [
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/v1/geocode?streetAddress=1600 Pennsylvania Ave NW&state=DC",
+          "host": ["{{baseUrl}}"],
+          "path": ["v1", "geocode"],
+          "query": [
+            { "key": "streetAddress", "value": "1600 Pennsylvania Ave NW" },
+            { "key": "state", "value": "DC" }
+          ]
         }
       }
     }
