@@ -1,0 +1,11 @@
+# Copy to .envrc (gitignored), fill in, then run `direnv allow`.
+
+export AWS_PROFILE=personal
+
+# Credentials for fetching a test JWT via scripts/get-token.sh.
+# Do NOT commit real values — .envrc is gitignored.
+export RQ_LOGIN_EMAIL=you@example.com
+export RQ_LOGIN_PASSWORD=change-me
+
+# Optional — defaults to the deployed resourceQuerier API if unset:
+# export RQ_API_BASE_URL=https://a4j9exec83.execute-api.us-east-1.amazonaws.com/Prod
