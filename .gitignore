@@ -1,0 +1,13 @@
+# SAM build output
+.aws-sam/
+
+# Bundler
+vendor/bundle
+.bundle
+
+# direnv
+.envrc
+.direnv/
+
+# Packaged templates produced by CI
+packaged-*.yaml

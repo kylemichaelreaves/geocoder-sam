@@ -1,13 +1,15 @@
-source "https://rubygems.org"
+# frozen_string_literal: true
 
-gem "geocoder"
-gem "json"
-gem 'uri'
-gem 'logger'
+source 'https://rubygems.org'
+
+# Development/test toolchain for running the handler specs locally and in CI.
+# The Lambda deployment package is built from handler/Gemfile (runtime deps only).
+gem 'geocoder'
 
 group :test do
-  gem "test-unit"
-  gem "mocha"
+  gem 'rspec', '~> 3.12'
 end
 
-gem "rspec", "~> 3.12"
+group :development, :test do
+  gem 'rubocop', require: false
+end

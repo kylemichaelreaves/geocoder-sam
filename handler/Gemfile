@@ -1,0 +1,8 @@
+# frozen_string_literal: true
+
+source 'https://rubygems.org'
+
+# Runtime dependencies only. This Gemfile is what `sam build` packages into the
+# Lambda deployment artifact, so it must NOT include test/dev gems.
+# `json` and `logger` ship as default gems in the ruby3.2 Lambda runtime.
+gem 'geocoder'

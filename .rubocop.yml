@@ -1,0 +1,30 @@
+AllCops:
+  TargetRubyVersion: 3.4
+  NewCops: enable
+  SuggestExtensions: false
+  Exclude:
+    - 'vendor/**/*'
+    - '.aws-sam/**/*'
+
+# Lambda handler signature (event:, context:) is fixed by the runtime; the
+# context: keyword is required even when unused.
+Lint/UnusedMethodArgument:
+  AllowUnusedKeywordArguments: true
+
+Metrics/MethodLength:
+  Max: 30
+
+Metrics/AbcSize:
+  Max: 25
+
+# Documentation comments are not required for this small service.
+Style/Documentation:
+  Enabled: false
+
+# Specs use long describe/context blocks by nature.
+Metrics/BlockLength:
+  Exclude:
+    - 'handler/spec/**/*'
+
+Style/FrozenStringLiteralComment:
+  Enabled: true

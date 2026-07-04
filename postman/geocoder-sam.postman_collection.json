@@ -1,0 +1,88 @@
+{
+  "info": {
+    "name": "geocoder-sam",
+    "description": "Serverless address geocoding API. Set the `baseUrl` and `apiKey` collection variables before running.\n\n- Local (`sam local start-api`): baseUrl = http://127.0.0.1:3000, apiKey can be left blank (SAM local does not enforce API keys).\n- Deployed: baseUrl = the GeocoderApiUrl stack output WITHOUT the trailing /v1/geocode (e.g. https://abc123.execute-api.us-east-1.amazonaws.com/Prod), apiKey = the value of the generated API key.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://127.0.0.1:3000" },
+    { "key": "apiKey", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Geocode (GET, individual params)",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Accept", "value": "application/json" },
+          { "key": "x-api-key", "value": "{{apiKey}}" }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/v1/geocode?streetAddress=1600 Pennsylvania Ave NW&municipality=Washington&state=DC&zipcode=20500",
+          "host": ["{{baseUrl}}"],
+          "path": ["v1", "geocode"],
+          "query": [
+            { "key": "streetAddress", "value": "1600 Pennsylvania Ave NW" },
+            { "key": "unitOrAptNum", "value": "", "disabled": true },
+            { "key": "municipality", "value": "Washington" },
+            { "key": "state", "value": "DC" },
+            { "key": "zipcode", "value": "20500" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Geocode (POST, JSON body)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Accept", "value": "application/json" },
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "x-api-key", "value": "{{apiKey}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"streetAddress\": \"208 Anderson St\",\n  \"aptNum\": \"\",\n  \"city\": \"Hackensack\",\n  \"state\": \"New Jersey\",\n  \"zipCode\": \"07601\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/v1/geocode",
+          "host": ["{{baseUrl}}"],
+          "path": ["v1", "geocode"]
+        }
+      }
+    },
+    {
+      "name": "Geocode (GET, legacy address blob — deprecated)",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Accept", "value": "application/json" },
+          { "key": "x-api-key", "value": "{{apiKey}}" }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/v1/geocode?address={\"streetAddress\":\"208 Anderson St\",\"city\":\"Hackensack\",\"state\":\"New Jersey\",\"zipCode\":\"07601\"}",
+          "host": ["{{baseUrl}}"],
+          "path": ["v1", "geocode"],
+          "query": [
+            { "key": "address", "value": "{\"streetAddress\":\"208 Anderson St\",\"city\":\"Hackensack\",\"state\":\"New Jersey\",\"zipCode\":\"07601\"}" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Geocode (400 — no address)",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Accept", "value": "application/json" },
+          { "key": "x-api-key", "value": "{{apiKey}}" }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/v1/geocode",
+          "host": ["{{baseUrl}}"],
+          "path": ["v1", "geocode"]
+        }
+      }
+    }
+  ]
+}
