@@ -84,8 +84,28 @@ sam local invoke GeocoderFunction --event events/event-post.json   # POST JSON b
 ### Postman
 
 Import `postman/geocoder-sam.postman_collection.json`, then set the `baseUrl` collection
-variable (e.g. `http://127.0.0.1:3000` for local) and `apiKey` (blank for local, the
-generated key for a deployed stack).
+variable (e.g. `http://127.0.0.1:3000` for local) and `jwt` (a token from
+resourceQuerier's `POST /api/v1/login`; can be blank locally since `sam local` doesn't
+run the authorizer).
+
+### Getting a test token
+
+`scripts/get-token.sh` fetches a JWT from resourceQuerier's login endpoint. It reads
+credentials from environment variables (never hardcoded) — set them in your gitignored
+`.envrc` (copy `.envrc.example`) and run `direnv allow`:
+
+```bash
+export RQ_LOGIN_EMAIL=you@example.com
+export RQ_LOGIN_PASSWORD=your-password
+# optional: export RQ_API_BASE_URL=https://<resourceQuerier-api>/Prod
+```
+
+```bash
+./scripts/get-token.sh          # prints the token — e.g. TOKEN=$(./scripts/get-token.sh)
+./scripts/get-token.sh --copy   # copies it to the clipboard (macOS)
+```
+
+Paste the result into the Postman collection's `jwt` variable. Tokens last ~24h.
 
 ## Deploy
 
